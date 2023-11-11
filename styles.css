@@ -47,10 +47,14 @@ button {
 h1 {
   font-size: 2rem;
   margin-block-end: var(--spacing);
+  color: white;
+  text-align: center;
 }
 
 h2 {
   font-size: 1.5rem;
+  color: white;
+  text-align: center;
 }
 
 main {
@@ -61,11 +65,49 @@ main {
   margin: var(--spacing) auto;
   padding-inline: var(--spacing);
   max-width: var(--max-width);
+  text-align: center;
 }
 
 dt {
   font-weight: bold;
   padding: 5px 0px 5px 0px;
+  color: white;
+  list-style: none;
 }
 
-/* TODO nánari stílar */
+dd {
+  list-style: none;
+  color: white;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+form button {
+  background-color: #4caf50;
+  color: white;
+  padding: 2px;
+  border: solid black 1px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #45a049;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #242f65;
+}
+
+span {
+  color: white;
+}
+
+li {
+  list-style: none;
+}

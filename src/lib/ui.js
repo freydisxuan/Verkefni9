@@ -196,7 +196,8 @@ export async function renderDetails(parentElement, id) {
     return;
   }
 
-  const { name, windowEnd, windowStart, status, mission } = result;
+  // eslint-disable-next-line
+  const { name, window_end, window_start, status, mission } = result;
 
   const detailsElement = el(
     'div',
@@ -206,9 +207,9 @@ export async function renderDetails(parentElement, id) {
       'dl',
       {},
       el('dt', {}, 'Byrjun glugga:'),
-      el('dd', {}, windowStart.replace(/T|Z/g, ' ')),
+      el('dd', {}, window_start.replace(/T|Z/g, ' ')),
       el('dt', {}, 'Lok glugga:'),
-      el('dd', {}, windowEnd.replace(/T|Z/g, ' ')),
+      el('dd', {}, window_end.replace(/T|Z/g, ' ')),
       el('dt', {}, 'Staða:'),
       el('dd', {}, status.name),
       el('dt', {}, 'Lýsing:'),
