@@ -197,7 +197,7 @@ export async function renderDetails(parentElement, id) {
   }
 
   // eslint-disable-next-line
-  const { name, window_end, window_start, status, mission } = result;
+  const { name, window_end, window_start, status, mission, image } = result;
 
   const detailsElement = el(
     'div',
@@ -217,7 +217,9 @@ export async function renderDetails(parentElement, id) {
       el('dt', {}, 'Heiti ferðar:'),
       el('dd', {}, mission.name),
       el('dt', {}, 'Lýsing:'),
-      el('dd', {}, mission.description)
+      el('dd', {}, mission.description),
+      el('dt', {}, 'Mynd:'),
+      el('img', { src: image })
     )
   );
 
