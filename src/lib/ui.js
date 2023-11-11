@@ -26,7 +26,12 @@ export function renderSearchForm(searchHandler, query = undefined) {
  * @param {Element | undefined} searchForm Leitarform sem á að gera óvirkt.
  */
 function setLoading(parentElement, searchForm = undefined) {
-  let loadingElement = parentElement.querySelector('.loading');
+  let loadingElement;
+  try {
+    loadingElement = parentElement.querySelector('.loading');
+  } catch (e) {
+    console.warn('fann ekki loading element');
+  }
 
   if (!loadingElement) {
     loadingElement = el('div', { class: 'loading' }, 'Sæki gögn...');
@@ -168,22 +173,52 @@ export function renderFrontpage(
  * @param {string} id Auðkenni geimskots.
  */
 export async function renderDetails(parentElement, id) {
-  const container = el('main', {});
   const backElement = el(
     'div',
     { class: 'back' },
     el('a', { href: '/' }, 'Til baka')
   );
+  const container = el('main', {}, backElement);
 
   parentElement.appendChild(container);
+  const mainElement = parentElement.querySelector('main');
+
+  setLoading(mainElement);
+  const result = await getLaunch(id);
+  setNotLoading(mainElement);
 
   /* TODO setja loading state og sækja gögn */
 
   // Tómt og villu state, við gerum ekki greinarmun á þessu tvennu, ef við
   // myndum vilja gera það þyrftum við að skilgreina stöðu fyrir niðurstöðu
   if (!result) {
-    /* TODO útfæra villu og tómt state */
+    console.warn('fann ekki leitarniðurstöðu');
+    return;
   }
 
-  /* TODO útfæra ef gögn */
+  const { name, windowEnd, windowStart, status, mission } = result;
+
+  const detailsElement = el(
+    'div',
+    { class: 'details' },
+    el('h2', { class: 'name' }, name),
+    el(
+      'dl',
+      {},
+      el('dt', {}, 'Byrjun glugga:'),
+      el('dd', {}, windowStart.replace(/T|Z/g, ' ')),
+      el('dt', {}, 'Lok glugga:'),
+      el('dd', {}, windowEnd.replace(/T|Z/g, ' ')),
+      el('dt', {}, 'Staða:'),
+      el('dd', {}, status.name),
+      el('dt', {}, 'Lýsing:'),
+      el('dd', {}, status.description),
+      el('dt', {}, 'Heiti ferðar:'),
+      el('dd', {}, mission.name),
+      el('dt', {}, 'Lýsing:'),
+      el('dd', {}, mission.description)
+    )
+  );
+
+  mainElement.appendChild(detailsElement);
 }

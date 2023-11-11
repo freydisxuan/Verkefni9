@@ -63,4 +63,9 @@ main {
   max-width: var(--max-width);
 }
 
+dt {
+  font-weight: bold;
+  padding: 5px 0px 5px 0px;
+}
+
 /* TODO nánari stílar */

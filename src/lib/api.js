@@ -61,7 +61,6 @@ export async function searchLaunches(query) {
     console.error('Villa við að vinna úr JSON');
     return null;
   }
-
   return json.results;
 }
 
@@ -71,5 +70,29 @@ export async function searchLaunches(query) {
  * @returns {Promise<LaunchDetail | null>} Geimskot.
  */
 export async function getLaunch(id) {
-  /* TODO útfæra */
+  let response;
+  try {
+    response = await fetch(`${API_URL}launch/${id}`);
+  } catch (e) {
+    console.error('Villa kom upp við að sækja gögn');
+    return null;
+  }
+
+  if (!response.ok) {
+    console.error(
+      'Villa við að sækja gögn, ekki 200 staða',
+      response.status,
+      response.statusText
+    );
+    return null;
+  }
+
+  let json;
+  try {
+    json = await response.json();
+  } catch (e) {
+    console.error('Villa við að vinna úr JSON');
+    return null;
+  }
+  return json;
 }
